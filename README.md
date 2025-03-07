@@ -19,10 +19,16 @@ mvn package
 - Add the plugin to activemq.xml
 ```
 <plugins>
-    <bean xmlns="http://www.springframework.org/schema/beans" id="activemqTestPlugin" class="com.activemq.auth.plugin.SampleAuthenticationPlugin">
-      <users>
-        <authenticationUser username="user" password="password" groups="users"/>
-      </users>
+    <bean xmlns="http://www.springframework.org/schema/beans" id="sampleAuthPlugin" class="com.activemq.auth.plugin.SampleAuthenticationPlugin">
+        <property name="users">
+            <list>
+                <bean class="org.apache.activemq.security.AuthenticationUser">
+                    <constructor-arg value="your-username"/>  <!-- Username -->
+                    <constructor-arg value="your-password"/>  <!-- Password -->
+                    <constructor-arg value="your-group"/>  <!-- Groups (comma-separated) -->
+                </bean>
+            </list>
+        </property>
     </bean>
 </plugins>
 ```
